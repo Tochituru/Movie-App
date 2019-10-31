@@ -21,5 +21,45 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
 
 7. Cambio el nombre del componentes App a AppRouter y todos los import (en index.js).
 
+8. Componente Home. Como tiene definido un estado, es un stateful class component:
+    Porque se define como una clase
+    Porque extiende los comportamientos y métodos de Component que ofrece React
+    Porque tiene definido un estado (this.state)
+    
+    Por eso, podemos usar métodos propios y custom o predeterminados de React.
 
+    El constructor es un método global de clases. Es el método de cada clase que define sus valores iniciales.
 
+    Dentro de la función render() {}, dentro del Return, especificamos cada una de las cosas que queremos en pantalla,  que van directo al virtual dom.
+
+    El estado: 
+    Es importante que todos los cambios se reflejen a través del estado. 
+    En los class components, existe el método state que deja indicar cuál es el estado.
+    Los functional components no pueden tener estados, al menos no de la misma manera que se conciben en los class components.
+    Cuando apareció Hooks, nos dio una opción de ofrecerles un estado propio a los functional components.
+
+    Propagación del estado:
+    Los functional components no tienen estado propio, sino que reciben props/parámetros que les dice qué información/contenido manejar. El estado que tiene el container se reparte entre cada uno de sus hijos en forma de props.
+    En el ejemplo, el único estado definido es title. Quizás se lo quiero pasar al header, o a movies, o a movie-list, hijos.
+    Para pasarlo a nietos, debo pasárselo primero al hijo y después al nieto.
+
+    super(props): hace referencia a la clase que es padre (en este caso, Router) y le pasa los valores otro class components. 
+
+Functional Component: aquellos componentes que son funciones.
+
+9. Definir la vista principal y los componentes. Este esquema permite establecer cómo vamos a seguir con el proceso de la app.
+- Header
+    - logo
+    - navbar
+- search
+- banner
+- listados de películas
+    - título
+    - película (componente que se repite x cant de veces)
+    - botón
+
+10. Componetización y pasar el estado a los componentes (functional components).
+    Un functional component es una función que retorna un fragmento de jsx.
+    Para colocarlo en el container Home, lo tengo que exportar e importar.
+    No nos interesa que Header tenga un state, sino pasárselo como parte de una prop.
+    Para propagársela desde el container al componente, asigno la prop como si fuera cualquier atributo y dentro tomo la propiedad del objeto state.
