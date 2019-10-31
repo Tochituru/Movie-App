@@ -1,0 +1,19 @@
+1. Npx create-react-app [folder-name]
+
+2. Eliminar todo en la carpeta src, excepto por App, index y  serviceWorker (js)
+
+3. npm install react-router-dom
+    importar al App file:
+        import {BrowserRouter, Route } from 'react-router-dom'
+    - como lo deestructuramos, podemos agregarle un alias a cada elemento:
+        BrowserRouter as Router
+
+4. Lo que nos va a interesar no es que App nos retorne Home sin procesar nada, sino que App se volverá el archivo Router que nos sirva diversos containers.
+    La mayoría de librerías específicas de react te devuelven componentes, a las que les pasamos props y hagan cositas.
+
+5. Los componentes se escriben como tags html, pero en mayúscula la primera letra.
+    - Puedo usar un componente como un elemento jsx (con sus tags html) o bien como variable dentro de las props de otro componente.
+
+TODO:¿Qué componente uso con cierre y cuál con doble elemento?
+
+
