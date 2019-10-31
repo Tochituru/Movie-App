@@ -16,4 +16,10 @@
 
 TODO:¿Qué componente uso con cierre y cuál con doble elemento?
 
+6. Para agregar rutas de acceso, necesito el componente Router y Route. Dentro de Router, escribiré path y la ruta URL y el componente que quiero que sirva (será el container).
+    Puedo agregar exact path para que busque rutas específicas. También puedo servir archivos y otras cosas.
+
+7. Cambio el nombre del componentes App a AppRouter y todos los import (en index.js).
+
+
 

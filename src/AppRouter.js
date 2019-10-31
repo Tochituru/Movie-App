@@ -2,11 +2,14 @@ import React from 'react';
 import Home from './containers/Home'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-const App = () => (
+const AppRouter = () => (
   <Router>
     <Route path={'/'} component={Home} />
+    {/*Example: <Route path={'/users'} component={Users}/> 
+    <Route exact path={'/users'} component={Users}/>
+  */}
   </Router>
 )
 
 
-export default App;
+export default AppRouter;
