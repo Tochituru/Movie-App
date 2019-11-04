@@ -47,6 +47,8 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
     En el ejemplo, el único estado definido es title. Quizás se lo quiero pasar al header, o a movies, o a movie-list, todos hijos.
     Para pasarlo a nietos, debo pasárselo primero al hijo y después al nieto.
 
+    - Hay que tener cuidado al hacer setState y modificaciones de estado.  Cuando me equivoco la propiedad que quiero cambiar, por ejemplo, changeTitle(newtitle) pasa a this.setState( subtitle: newtitle), hay ciertas versiones que lo agregan y otras que presuponen que eso es el único estado que queremos poner.
+
     super(props): hace referencia a la clase que es padre (en este caso, Router) y le pasa los valores otro class components. 
 
 9. Definir la vista principal y los componentes. Este esquema permite establecer cómo vamos a seguir con el proceso de la app.
