@@ -8,62 +8,64 @@
     - como lo deestructuramos, podemos agregarle un alias a cada elemento:
         BrowserRouter as Router
 
-4. Lo que nos va a interesar no es que App nos retorne Home sin procesar nada, sino que App se volverá el archivo Router que nos sirva diversos containers.
-    La mayoría de librerías específicas de react te devuelven componentes, a las que les pasamos props y hagan cositas.
+4. Lo que buscamos no es que App nos retorne Home sin procesar nada, sino que App se vuelva el archivo Router que nos sirva diversos containers.
+    La mayoría de librerías específicas de react te devuelven componentes, a las que les pasamos props para que hagan cositas.
 
-5. Los componentes se escriben como tags html, pero en mayúscula la primera letra.
-    - Puedo usar un componente como un elemento jsx (con sus tags html) o bien como variable dentro de las props de otro componente.
+5. Los componentes se escriben como tags html, pero con mayúscula en la primera letra.
+    Puedo usar un componente como un elemento jsx (con sus tags html) o bien como variable dentro de las props de otro componente.
 
 TODO:¿Qué componente uso con cierre y cuál con doble elemento?
 
-6. Para agregar rutas de acceso, necesito el componente Router y Route. Dentro de Router, escribiré path y la ruta URL y el componente que quiero que sirva (será el container).
+6. Para agregar rutas de acceso, necesito el componente Router y Route. Dentro de Router, escribiré path y la ruta URL y el componente que quiero que se sirva/retorne (será el container).
     Puedo agregar exact path para que busque rutas específicas. También puedo servir archivos y otras cosas.
 
-7. Cambio el nombre del componentes App a AppRouter y todos los import (en index.js).
+7. Cambio el nombre del componente App a AppRouter y todos los import (en index.js).
 
-8. Componente Home. Como tiene definido un estado, es un stateful class component:
-    Porque se define como una clase
-    Porque extiende los comportamientos y métodos de Component que ofrece React
-    Porque tiene definido un estado (this.state)
+8. Componente/Container Home. Tiene definido un estado y es un stateful class component:
+    - Porque se define como una clase.
+    - Porque extiende los comportamientos y métodos de Component que ofrece React.
+    - Porque tiene definido un estado (this.state).
     
-    Por eso, podemos usar métodos propios y custom o predeterminados de React.
+    Por lo tanto, podemos usar métodos propios y custom o predeterminados de React.
 
-    El constructor es un método global de clases. Es el método de cada clase que define sus valores iniciales.
+    El constructor es un método global de clases. Es el método de toda clase que define sus valores iniciales.
 
-    Dentro de la función render() {}, dentro del Return, especificamos cada una de las cosas que queremos en pantalla,  que van directo al virtual dom.
+    TODO: ¿Por qué a veces se usa constructor y otros no?
+
+    TODO: ¿Por qué algunos métodos llevan punto y otros no? (this.setState vs. componentDidMount)
+
+    Dentro de la función render() {}, incluimos un Return(cositas) y allí especificamos cada una de las cosas que queremos en pantalla,  que van directo al virtual dom.
 
     El estado: 
-    Es importante que todos los cambios se reflejen a través del estado. 
-    En los class components, existe el método state que deja indicar cuál es el estado.
+    Es importante que todos los cambios se reflejen a través del estado, no por referencia. 
+    Lo class components incluyen el método state que deja indicar cuál es el estado.
     Los functional components no pueden tener estados, al menos no de la misma manera que se conciben en los class components.
     Cuando apareció Hooks, nos dio una opción de ofrecerles un estado propio a los functional components.
 
     Propagación del estado:
     Los functional components no tienen estado propio, sino que reciben props/parámetros que les dice qué información/contenido manejar. El estado que tiene el container se reparte entre cada uno de sus hijos en forma de props.
-    En el ejemplo, el único estado definido es title. Quizás se lo quiero pasar al header, o a movies, o a movie-list, hijos.
+    En el ejemplo, el único estado definido es title. Quizás se lo quiero pasar al header, o a movies, o a movie-list, todos hijos.
     Para pasarlo a nietos, debo pasárselo primero al hijo y después al nieto.
 
     super(props): hace referencia a la clase que es padre (en este caso, Router) y le pasa los valores otro class components. 
 
-Functional Component: aquellos componentes que son funciones.
-
 9. Definir la vista principal y los componentes. Este esquema permite establecer cómo vamos a seguir con el proceso de la app.
 - Header
-    - logo
-    - navbar
-- search
-- banner
-- listados de películas
-    - título
-    - película (componente que se repite x cant de veces)
-    - botón
+    - Logo
+    - NavBar
+- Search
+- Banner
+- MovieList
+    - MovieTitle
+    - Movie (componente que se repite x cant de veces)
+    - Button
 
-10. Componetización y pasar el estado a los componentes (functional components).
+10. Componetización y pasar el estado a los functional components.
     Un functional component es una función que retorna un fragmento de jsx.
     Para colocarlo en el container Home, lo tengo que exportar e importar.
-    No nos interesa que Header tenga un state, sino pasárselo como parte de una prop.
-    Para propagársela desde el container al componente, asigno la prop como si fuera cualquier atributo y dentro tomo la propiedad del objeto state.
-    Estamos definiendo un origen de información y lo compartimos con los hijos del componente. Si header consumiera otro componente más y le quiere compartir un cacho del estado, también lo puede hacer, pero con cuidado. Se complica hacerlo disponible. Ahí vamos a ver librerías para ver cómo facilitarlo.
+    Por ejemplo, no nos interesa que Header tenga un state, sino pasárselo como parte de sus props.
+    Para propagar desde el container hacia cada componente, asigno la prop como si fuera cualquier atributo y dentro tomo la propiedad del objeto state.
+    Estamos definiendo un origen de información y lo compartimos con los hijos del componente. Si header consumiera otro componente más y le quiere compartir un cacho del estado, también lo puede hacer, pero con cuidado. Se complica hacerlo disponible. Vamos a ver librerías para ver cómo facilitarlo.
 
 11. Propagación del estado: agregar elemento NavBar.
     - Cuando un functional component solo retornará elementos, no hace falta escribir el return (si es una sola línea).
@@ -71,5 +73,5 @@ Functional Component: aquellos componentes que son funciones.
     - Escribo el componente más pequeño primero y después el que voy a exportar.
     - Como en el estado voy a crear el contenido de cada elemento LI, necesito propagarlo al hijo primero (a través del render y del return de NavBar).
     - Debo usar el método .map porque me retorna cosas (cada elemento).
-    - Para que consuma las propiedades, debo reconocer que las props de NavBar serán parte del array, y para que consuma los datos de cada navItem, debo llamar al element, que contendrá las propiedades que me interesan.
+    - Para que consuma las propiedades, debo reconocer que las props de NavBar serán parte del array, y para que consuma los datos de cada navItem, debo llamar al element en prop (aunque también puedo llamarlo desestructurado), que contendrá las propiedades que me interesan.
     - También puedo llevar NavItems a otro componente por separado.
