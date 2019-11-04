@@ -63,3 +63,13 @@ Functional Component: aquellos componentes que son funciones.
     Para colocarlo en el container Home, lo tengo que exportar e importar.
     No nos interesa que Header tenga un state, sino pasárselo como parte de una prop.
     Para propagársela desde el container al componente, asigno la prop como si fuera cualquier atributo y dentro tomo la propiedad del objeto state.
+    Estamos definiendo un origen de información y lo compartimos con los hijos del componente. Si header consumiera otro componente más y le quiere compartir un cacho del estado, también lo puede hacer, pero con cuidado. Se complica hacerlo disponible. Ahí vamos a ver librerías para ver cómo facilitarlo.
+
+11. Propagación del estado: agregar elemento NavBar.
+    - Cuando un functional component solo retornará elementos, no hace falta escribir el return (si es una sola línea).
+    Cuando quiero que pasen acciones antes de retornar, escribo específicamente return(cositas) (con los paréntesis) para que haga esa acción y después retorne los elementos.
+    - Escribo el componente más pequeño primero y después el que voy a exportar.
+    - Como en el estado voy a crear el contenido de cada elemento LI, necesito propagarlo al hijo primero (a través del render y del return de NavBar).
+    - Debo usar el método .map porque me retorna cosas (cada elemento).
+    - Para que consuma las propiedades, debo reconocer que las props de NavBar serán parte del array, y para que consuma los datos de cada navItem, debo llamar al element, que contendrá las propiedades que me interesan.
+    - También puedo llevar NavItems a otro componente por separado.
