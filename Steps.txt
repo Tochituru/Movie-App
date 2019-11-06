@@ -1,4 +1,7 @@
 1. Npx create-react-app [folder-name]
+CRA es un boilerplate: hace por nosotras todas las config que tienen su nivel de complejidad para poder ver un proyecto. Incluye webpack, babel, que tienen su grado de complejidad, y permite que nos concentremos en nuestro código.
+
+CRA crea una instancia de git init automáticamente. 
 
 2. Eliminar todo en la carpeta src, excepto por App, index y  serviceWorker (js)
 
@@ -8,18 +11,21 @@
     - como lo deestructuramos, podemos agregarle un alias a cada elemento:
         BrowserRouter as Router
 
-4. Lo que buscamos no es que App nos retorne Home sin procesar nada, sino que App se vuelva el archivo Router que nos sirva diversos containers.
+4. Lo que buscamos no es que App nos retorne Home sin procesar nada, sino que App se vuelva el archivo Router, el punto de entrada, que nos sirva diversos containers.
     La mayoría de librerías específicas de react te devuelven componentes, a las que les pasamos props para que hagan cositas.
 
 5. Los componentes se escriben como tags html, pero con mayúscula en la primera letra.
-    Puedo usar un componente como un elemento jsx (con sus tags html) o bien como variable dentro de las props de otro componente.
+    Puedo usar un componente como un elemento jsx (con sus tags html) o bien como variable dentro de las props de otro componente.    
 
 TODO:¿Qué componente uso con cierre y cuál con doble elemento?
 
 6. Para agregar rutas de acceso, necesito el componente Router y Route. Dentro de Router, escribiré path y la ruta URL y el componente que quiero que se sirva/retorne (será el container).
-    Puedo agregar exact path para que busque rutas específicas. También puedo servir archivos y otras cosas.
+    <Route path={'/'} component={Home} />
+    Puedo agregar exact path para que busque rutas específicas no modificables. También puedo servir archivos y otras cosas.
+    Los componentes que aquí agregue serán los que yo quiero servir como vistas completas, que agrupan un montón de componentes para generar esas vistas (los containers). Manejan un estado propio.
 
 7. Cambio el nombre del componente App a AppRouter y todos los import (en index.js).
+    El index.js es la única instancia donde modificaremos el html y el dom de forma tradicional.
 
 8. Componente/Container Home. Tiene definido un estado y es un stateful class component:
     - Porque se define como una clase.
@@ -32,15 +38,17 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
 
     TODO: ¿Por qué a veces se usa constructor y otros no?
 
-    TODO: ¿Por qué algunos métodos llevan punto y otros no? (this.setState vs. componentDidMount)
+    TODO: ¿Por qué algunos métodos llevan punto y otros no? (this.setState vs. componentDidMount o render)
 
-    Dentro de la función render() {}, incluimos un Return(cositas) y allí especificamos cada una de las cosas que queremos en pantalla,  que van directo al virtual dom.
+    Dentro del método render() {}, incluimos un Return(cositas) y allí especificamos cada una de las cosas que queremos en pantalla, que van directo al virtual dom. El método render sirve únicamente para React (creemos).
 
     El estado: 
     Es importante que todos los cambios se reflejen a través del estado, no por referencia. 
-    Lo class components incluyen el método state que deja indicar cuál es el estado.
-    Los functional components no pueden tener estados, al menos no de la misma manera que se conciben en los class components.
-    Cuando apareció Hooks, nos dio una opción de ofrecerles un estado propio a los functional components.
+    ¿Cómo se vuelve stateful un componente? Al definir su esado y los métodos para manejarlo.
+        this.state={}
+    
+    Los class components incluyen el método state que deja indicar cuál es el estado.
+        Los functional components no pueden tener o manejar estados o del life cycle, al menos no de la misma manera que se conciben en los class components. Cuando apareció Hooks, nos dio una opción de ofrecerles un estado propio a los functional components.
 
     Propagación del estado:
     Los functional components no tienen estado propio, sino que reciben props/parámetros que les dice qué información/contenido manejar. El estado que tiene el container se reparte entre cada uno de sus hijos en forma de props.
@@ -52,15 +60,17 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
     super(props): hace referencia a la clase que es padre (en este caso, Router) y le pasa los valores otro class components. 
 
 9. Definir la vista principal y los componentes. Este esquema permite establecer cómo vamos a seguir con el proceso de la app.
-- Header
-    - Logo
-    - NavBar
-- Search
-- Banner
-- MovieList
-    - MovieTitle
-    - Movie (componente que se repite x cant de veces)
-    - Button
+    - Header
+        - Logo
+        - NavBar
+    - Search
+    - Banner
+    - MovieList
+        - MovieTitle
+        - Movie (componente que se repite x cant de veces)
+        - Button
+
+    Las vistas irán dentro de la carpeta containers y los componentes stateless en la carpeta components.
 
 10. Componetización y pasar el estado a los functional components.
     Un functional component es una función que retorna un fragmento de jsx.
@@ -77,3 +87,17 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
     - Debo usar el método .map porque me retorna cosas (cada elemento).
     - Para que consuma las propiedades, debo reconocer que las props de NavBar serán parte del array, y para que consuma los datos de cada navItem, debo llamar al element en prop (aunque también puedo llamarlo desestructurado), que contendrá las propiedades que me interesan.
     - También puedo llevar NavItems a otro componente por separado.
+---
+12. Estilos, SASS y CSS. 
+     Normalmente, existe una hoja base de estilos (una definición global con reglas generales) y los componentes tienen pequeñas hojas de estilo que modifican los elementos particulares.
+
+    Para poner sass en Home.js, vamos a crear una hoja de estilos Home.scss (con mayúscula).
+    
+    ¿Cómo se resuelve sass en el contexto de React?
+    Primero, instalamos Sass para el proyecto:
+            npm install node-sass
+
+    En el JS, importamos el archivo sass:
+    import './Home.scss'
+
+    Con eso basta. No vamos a generar un css, ni correr el script de Sass. La aplicación lo hace automáticamente.
