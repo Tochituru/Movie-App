@@ -7,13 +7,11 @@ const NavItem = ({element}) => {
     </li>)
 };
 
-const NavBar = (props) => {
-    console.log(props);
-    
+const NavBar = ({data}) => {  
     return (
         <nav>
             <ul>
-                {props.data.map((e, i)=> <NavItem key={i} element={e} />)}
+                {data.map((e, i)=> <NavItem key={i} element={e} />)}
             </ul>
         </nav>
     )

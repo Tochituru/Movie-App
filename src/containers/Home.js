@@ -13,11 +13,15 @@ class Home extends Component {
                 { label: 'Top Rated', href: '/top' },
                 { label: 'Popular', href: '/popular' },
                 { label: 'Upcoming', href: '/upcoming' },
-            ]
+            ],
+            moviesList: [],
         }
     };
 
-
+    // fetchMovies(){
+    //     fetch('moviesApi')
+    //     .then(res => this.setState({moviesList: res}))
+    // }
     changeTitle(newTitle) {
         this.setState({ title: newTitle })
     };
@@ -27,6 +31,7 @@ class Home extends Component {
             <Fragment>
                 <Header pageTitle={this.state.title} />
                 <NavBar data={this.state.nav} />
+                {/* <Movies list={this.state.moviesList}/> */}
             </Fragment>
         )
     }

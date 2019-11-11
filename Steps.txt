@@ -27,14 +27,31 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
 7. Cambio el nombre del componente App a AppRouter y todos los import (en index.js).
     El index.js es la única instancia donde modificaremos el html y el dom de forma tradicional.
 
-8. Componente/Container Home. Tiene definido un estado y es un stateful class component:
+8. Componente/Container/Home. 
+Es importante guardarlo dentro de su propia carpeta (que le sirva a un container y nada más ese container) para tenerlo bien dividido.
+
+Tiene definido un estado y es un stateful class component:
     - Porque se define como una clase.
     - Porque extiende los comportamientos y métodos de Component que ofrece React.
     - Porque tiene definido un estado (this.state).
     
     Por lo tanto, podemos usar métodos propios y custom o predeterminados de React.
 
-    El constructor es un método global de clases. Es el método de toda clase que define sus valores iniciales.
+    El constructor es un método global de todas las clases. Es el método de toda clase que define sus valores iniciales.
+    En el caso de los React components, hace falta pasarle al constructor parámetros props para que funcione:
+    constructor (props) {cositas}
+
+        El método super, dentro del constructor y en el contexto de clases, hace referencia a lo que está un nivel más arriba y le baje las propiedades que debería heredar para usar esas props.
+            super(props)
+
+    Props: (o properties) son parámetros. ¿Por qué le decimos props? A la hora de construir interfaces con react, hacemos cachos de vista que se representan como elementos nativos de html, como el header. No obstante, hay muchas más diferencias entre el jsx y html. Por ejemplo, creamos el elemento Header, le damos capacidades y funcionalidad y, al igual que los elementos HTML reciben propiedades (o atributos), por eso les decimos props: son las propiedades que los definen, más que los simples parámetros. Como esas props pueden tener parámetros, les decimos props para no confundirnos.
+
+    Si dentro de un componente, quiero acceder a una prop que estoy pasando desde un container, debo incluir props como parámetro y mencionarlo dentro del componente mismo, como propiedad del objeto props (o bien desestructurado).
+
+    Container: <Header title={'título'}/>
+    Componente: const Header (props) => (<div>{props.title}</div>)
+     
+    Componente: const Header ({title}) => (<div>{title}</div>)
 
     TODO: ¿Por qué a veces se usa constructor y otros no?
 
@@ -44,8 +61,14 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
 
     El estado: 
     Es importante que todos los cambios se reflejen a través del estado, no por referencia. 
-    ¿Cómo se vuelve stateful un componente? Al definir su esado y los métodos para manejarlo.
+    Es mejor tener la información hardcodeada dentro del this.state que en el render () {return()}.
+
+    
+    TODO: render() (cositas); render() {return(cositas)}
+
+    ¿Cómo se vuelve stateful un componente? Al definir su estado y los métodos para manejarlo.
         this.state={}
+
     
     Los class components incluyen el método state que deja indicar cuál es el estado.
         Los functional components no pueden tener o manejar estados o del life cycle, al menos no de la misma manera que se conciben en los class components. Cuando apareció Hooks, nos dio una opción de ofrecerles un estado propio a los functional components.
@@ -53,11 +76,13 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
     Propagación del estado:
     Los functional components no tienen estado propio, sino que reciben props/parámetros que les dice qué información/contenido manejar. El estado que tiene el container se reparte entre cada uno de sus hijos en forma de props.
     En el ejemplo, el único estado definido es title. Quizás se lo quiero pasar al header, o a movies, o a movie-list, todos hijos.
+
+    El estado es un objeto, por lo que deberá desestructurarse a sus propiedades o llamarlas dentro del objeto this.state(.title).
+    
     Para pasarlo a nietos, debo pasárselo primero al hijo y después al nieto.
 
     - Hay que tener cuidado al hacer setState y modificaciones de estado.  Cuando me equivoco la propiedad que quiero cambiar, por ejemplo, changeTitle(newtitle) pasa a this.setState( subtitle: newtitle), hay ciertas versiones que lo agregan y otras que presuponen que eso es el único estado que queremos poner.
 
-    super(props): hace referencia a la clase que es padre (en este caso, Router) y le pasa los valores otro class components. 
 
 9. Definir la vista principal y los componentes. Este esquema permite establecer cómo vamos a seguir con el proceso de la app.
     - Header
@@ -87,7 +112,7 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
     - Debo usar el método .map porque me retorna cosas (cada elemento).
     - Para que consuma las propiedades, debo reconocer que las props de NavBar serán parte del array, y para que consuma los datos de cada navItem, debo llamar al element en prop (aunque también puedo llamarlo desestructurado), que contendrá las propiedades que me interesan.
     - También puedo llevar NavItems a otro componente por separado.
----
+
 12. Estilos, SASS y CSS. 
      Normalmente, existe una hoja base de estilos (una definición global con reglas generales) y los componentes tienen pequeñas hojas de estilo que modifican los elementos particulares.
 
@@ -101,3 +126,25 @@ TODO:¿Qué componente uso con cierre y cuál con doble elemento?
     import './Home.scss'
 
     Con eso basta. No vamos a generar un css, ni correr el script de Sass. La aplicación lo hace automáticamente.
+
+    Nos conviene hacer una ruta commons/sass para aquellos sass que afecten a toda la aplicación.
+
+    Si estamos haciendo una hoja de estilos completa y la tenemos que importar en otra parte, probablemente la estamos bardeando. Si pongo important a un estilo que yo definí, hay algo mal. 
+
+13. Agnostizar: si tengo un sitio con algo demasiado grande escrito, que aparece en un container, me imagino que hay muchos componentes que están en la home y podríamos convertirlo en JSon.
+    
+    A medida que vamos a complejizando los componentes y sus propios elementos, crearemos sus propias carpetas para que sea más fácil de leer y entender.
+
+14. Fetch
+    Vamos a hacer un custom fetch, que nos traerá la api de las películas.
+    Normalmente, no vamos a saber de entrada todas las props que va a requerir el nuevo componente Movie, por lo que vamos a tener que estar iterando y reescribiendo, un proceso que es muy normal (y hasta sano).
+
+15. Ciclos iterativos
+    Siempre conviene preguntarse: ¿qué es lo mínimo que puede hacer? Hay que manejarse en ciclos iterativos en los que logremos el mínimo viable de ese producto. El dia 1 tira las películas en pantalla. El día 2 las filtra y se ve mejor. El día 3 busca por categoría. El día 4 te busca la string. El día 5 es alta aplicación.
+
+    Si tengo más de niveles de indentación, algo está pasado.
+
+TODO: ¿Atomic Design?
+
+
+[01-10]

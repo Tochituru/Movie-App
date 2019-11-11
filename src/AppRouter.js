@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './containers/Home'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './commons/sass/index.scss'
 
 const AppRouter = () => (
   <Router>
