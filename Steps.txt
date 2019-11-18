@@ -17,7 +17,7 @@ CRA crea una instancia de git init automáticamente.
 5. Los componentes se escriben como tags html, pero con mayúscula en la primera letra.
     Puedo usar un componente como un elemento jsx (con sus tags html) o bien como variable dentro de las props de otro componente.    
 
-TODO:¿Qué componente uso con cierre y cuál con doble elemento?
+    ¿Qué componente uso con cierre y cuál con doble elemento? Cuando tiene hijos, lo uso doble. Aunque puedo usarlo siempre.
 
 6. Para agregar rutas de acceso, necesito el componente Router y Route. Dentro de Router, escribiré path y la ruta URL y el componente que quiero que se sirva/retorne (será el container).
     <Route path={'/'} component={Home} />
@@ -147,4 +147,50 @@ Tiene definido un estado y es un stateful class component:
 TODO: ¿Atomic Design?
 
 
-[01-10]
+[01-10] 
+
+16. El estado.
+    Es la funcionalidad más importante de React.
+    ¿Cómo modificamos el estado de un class components?
+    Tienen un método propio que reciben al extender la clase component de React, que es this.setState.
+    Buena práctica: si tengo funciones que modifican el estado, quiero que sean lo más claras posibles. Recibo el nuevo valor de estado y lo coloco directo.
+    Si tengo que hacer varias cosas que cambian, hago una función aparte que organice esa información y luego a la función de modificación le paso eso. Así pondré distintos métodos independientes que organicen datos por distintos motivos y uno solo que se encargue de guardarlos.
+
+    No queremos hacer elementos setState dentro del render, porque ese elemento se dispara muchísimas veces. 
+
+    En el ejemplo con <a> cambia el estado "title" de un componente distinto. 
+    Si más de un elemento consume el mismo estado, cuando lo modifique, se modifique en todo lugar que lo referencie.
+
+Si yo quiero que un componente que usa el estado del padre lo modifique, tengo que darle desde el padre la función que me modifique.
+
+17. Props.children
+    Es una propiedad de todos los componentes.
+    Cuando colocamos contenido dentro de un componente, los componentes reciben una nueva propiedad dentro, que se llama children. Si agrego el texto dentro del container, no se va a visualizar. Cuando envuelvo contenido dentro de un componente, ese contenido pasa al componente bajo el nombre children, como una de sus propiedades, aunque no esté definida en el componentes. Entonces, si yo quiero usarlo, tengo que ir al componente y agergarle props.chldren. 
+
+    Yo puedo colocar dentro de Header el componente NavBar, y de ser así, podemos sumarlo mientras esté la prop children.
+
+    TODO: ¿Siempre hace falta ponerle la props children?
+
+    
+    Hay otro escenario con los children.
+    Los children pueden son, en esencia, una lista de elementos.
+
+    Dentro de Header, podemos decirle: 
+    {children.map((e, i) => <div>holi</div>)}
+    
+    y van a aparecer directamente en pantalla.
+
+    Así, podemos jugar cómo queremos que se muestren los datos.
+    En la medida que queremos sumarle la capacidad de dinamismo, podemos preguntarnos: ¿tengo un solo elemento? ¿o tengo varios?
+
+    Children no está especificada en el container, sino que reaact lo reconoce como un elemento dentro del objeto props, y lo pasa automáticamente como children al elemento stateless.
+
+18. Limpieza:
+    Cuando miro el render de un container, solo quiero ver componentes.
+
+    Si uso grids, tags o cosas dentro de un componente, es preferible que lo haga dentro de un componente.
+    
+    En ciertos casos, conviene que el componente sea agnóstico y no haga mil condicionees sobre cómo se visualiza.
+
+    También cuando hay ul y lis, quizás conviene dejarlo dentro de un mismo componente.
+

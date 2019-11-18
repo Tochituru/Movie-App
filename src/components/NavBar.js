@@ -1,9 +1,10 @@
 import React from 'react';
 
 const NavItem = ({element}) => {
+    let {href, label} = element;
     return (
     <li>
-        <a href={element.href}>{element.label}</a>
+        <a href={href}>{label}</a>
     </li>)
 };
 

@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Header = prop => {
+const Header = props => {
     return(
         <header>
-            <h1>{prop.pageTitle} </h1>
+            <h1>{props.pageTitle} </h1>
+            {props.children}
         </header>
     )
 }
