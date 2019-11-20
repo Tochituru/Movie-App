@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import Body from '../components/Body'
 import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 import './Home.scss';
@@ -46,12 +47,24 @@ class Home extends Component {
         return (
             <Fragment>
                 <Header pageTitle={this.state.title} menuData={this.state.nav}>
-                    Contenido de children
                 </Header>
                 <NavBar data={this.state.nav} />
-                {/* <Movies list={this.state.moviesList}/> */}
-                <p>{this.state.title}</p>
-                <a href='!#' onClick={() => this.changeTitle('nuevo título')}>btn</a>
+                {
+                    this.state.moviesList.map((element, i) => (
+                        <div key={i}>
+                            <h3>{element.cat}</h3>
+                            <ul>
+                                {element.movies.map((movie, index) => (<li key={index}>{movie.title} </li>
+                                ))
+                                }
+                            </ul>
+                        </div>
+                    ))
+                }
+                <Body test='probando la vida' />
+                {/* {this.state.selectedCAt ? <MoviesCat /> : <MoviesHome/>} */}
+                {/* esta es una opción, pero no es una buena práctica. No conviene poner condiciones en el render. */}
+                {/* this.state.selectedCat && MoviesCat  --> Esto es uan forma de decir: si existe A, entonces muestra B*/}
             </Fragment>
         )
     }

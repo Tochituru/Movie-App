@@ -194,3 +194,18 @@ Si yo quiero que un componente que usa el estado del padre lo modifique, tengo q
 
     También cuando hay ul y lis, quizás conviene dejarlo dentro de un mismo componente.
 
+
+19. AXIOS
+    Para hacer fetch.
+    Es muy parecida al fetch y permite hacer custom fetches.
+    Solo hay que configurar otras cosas.
+
+Como no sabemos cómo va a quedar exacto el estado que queremos, lo que haremos es maquetar como campeonas en el stateful container con un ejemplo.
+
+20. Listas: En vez de que cada propiedad sea una nueva línea de código, que nos obligaba a ponerlo todo aparte, envolverlo y llamarlo, esto es directo. En vez de appendchild por cada li de un UL, llamamos al UL y hacemos un .map para todos los li.
+
+Si tengo una lista de objetos, y cada uno tiene una lista de objetos, es posible que rompa todo a menos que me prepare.
+
+[]
+
+
