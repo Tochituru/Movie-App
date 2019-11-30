@@ -211,12 +211,32 @@ Si yo quiero que un componente que usa el estado del padre lo modifique, tengo q
     También cuando hay ul y lis, quizás conviene dejarlo dentro de un mismo componente.
 
 
-19. AXIOS
+19. FETCH.
+
+ AXIOS
     Para hacer fetch.
     Es muy parecida al fetch y permite hacer custom fetches.
     Solo hay que configurar otras cosas.
 
 Como no sabemos cómo va a quedar exacto el estado que queremos, lo que haremos es maquetar como campeonas en el stateful container con un ejemplo.
+
+Para hacer fetch, normalmente esperamos el onLoad. 
+
+Como los componentes tienen un ciclo de vida, React nos expone ciertos métods para trabajar en esos momentos. Los más importantes y usados son "willmount" (que está depreacado, pero se sigue usnado), "didmount" (que se montó el componente, está renderizado), "didupdate" (el estado que afecta al componente, la información que proviene de un estado o de una de sus props, se actualizó). Estos son independientes del render.
+
+    componentDidMount = 
+        Está renderizado lo que tiene este componente en el dom.
+        Es el "equivalente" de un onload (con pinzas).
+        Nos interesa este evento porque nos dice que las cosas ya están en pantalla y podemos modificarlas.
+        Antes de eso, no nos interesa intentar modificar lo que está en pantalla, porque no lo vamos a encontrar.
+        Es un evento que se ejecuta automáticamente cuando se cargó en pantalla y podemos empezar a hacer un montón de cosas: modificar los datos que afectan lo renderiza el componente.
+        Este el momento en el cual yo quiero consumir una API desde mi componente, hacer un fetch para obtener la información.
+        Ahí dentro haremos un fetch básico.
+        ¿Dónde queremos guardar la información? En el estado. Lo hacemosmediante setState.
+        Como ya mencionamos, el estado debe tener el elemento "movies" inicializado (en este caso una lista vacía), porque cualquier componente que quiera consumir la lista antes de que esté completa va a romper todo (porque movies está "undefined").
+
+    ¿Cómo manejo el componentDidMount? Marco el fetch aparte y lo llamo por dentro.
+
 
 20. Listas: En vez de que cada propiedad sea una nueva línea de código, que nos obligaba a ponerlo todo aparte, envolverlo y llamarlo, esto es directo. En vez de appendchild por cada li de un UL, llamamos al UL y hacemos un .map para todos los li.
 
@@ -246,5 +266,5 @@ Es más performante usar translate y transform que modificar con display block e
 Para agregar contenido al modal, agrego un estado currentMovie y una función que modifique ese estado. Ahora, el contenido se modifica mediante la función.
 
 
-[10-03 01:30]
+[10-04]
 

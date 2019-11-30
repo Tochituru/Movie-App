@@ -1,0 +1,15 @@
+.movieList {
+    padding:0;
+    color: black;
+    .title {
+        font-weight: bolder;
+        margin: 20px 0;
+    };
+    .overview {
+        font-weight: lighter;
+    }
+    .date {
+        font-weight: lighter;
+    }
+}
+

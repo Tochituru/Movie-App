@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Header from '../components/Header/Header';
 import Modal from '../components/Modal/Modal';
 import NavBar from '../components/NavBar/NavBar';
+import MovieList from '../components/MovieList/MovieList';
 
 class Home extends Component {
     state = {
@@ -11,6 +12,7 @@ class Home extends Component {
             isPrimaryActionDisabled: '',
             // para que estén prolijitos ahí
         },
+        apiKey: '8499e5e340f4886fd910c1fc4b904db1',
         title: 'Título',
         isModalOpen: false,
         currentMovie: '',
@@ -24,23 +26,7 @@ class Home extends Component {
             { label: 'Popular', href: '/popular' },
             { label: 'Upcoming', href: '/upcoming' },
         ],
-        moviesList: [
-            {
-                cat: 'Popular', movies: [
-                    { title: 'Batman Begins', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet. Sed non venenatis diam. Praesent vehicula luctus turpis, id vulputate ipsum finibus quis.' },
-                    { title: 'Batman Continues', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet.' }, { title: 'Batman Ends', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet. Sed non venenatis diam. Praesent vehicula luctus turpis, id vulputate ipsum finibus quis.' },]
-            },
-            {
-                cat: 'Top Rated', movies: [
-                    { title: 'Batman Begins', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet. Sed non venenatis diam. Praesent vehicula luctus turpis, id vulputate ipsum finibus quis.' },
-                    { title: 'Batman Continues', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet.' }, { title: 'Batman Ends', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet. Sed non venenatis diam. Praesent vehicula luctus turpis, id vulputate ipsum finibus quis.' },]
-            },
-            {
-                cat: 'Upcoming', movies: [
-                    { title: 'Batman Begins', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet. Sed non venenatis diam. Praesent vehicula luctus turpis, id vulputate ipsum finibus quis.' },
-                    { title: 'Batman Continues', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet.' }, { title: 'Batman Ends', synopsis: 'Sed in risus blandit, tristique dui sit amet, scelerisque metus. Etiam ac porta orci. Proin dignissim dignissim ante, a semper nisl egestas sit amet. Sed non venenatis diam. Praesent vehicula luctus turpis, id vulputate ipsum finibus quis.' },]
-            }
-        ],
+        movies: [],
     };
 
     // fetchMovies(){
@@ -54,17 +40,19 @@ class Home extends Component {
         this.toggleModal()
     }
 
-    componentWillMount() {
-        console.log('dos')
-    }
+    getMovies = (cat) => {
+        fetch(`https://api.themoviedb.org/3/movie/${cat}?api_key=${this.state.apiKey}`)
+            .then((res) => res.json())
+            .then((res) => this.setState({ movies: res.results }))
 
+    }
     componentDidMount() {
-        console.log('uno')
+        this.getMovies('top_rated')
     }
 
 
     render() {
-        console.log('tres')
+        console.table(this.state.movies)
         return (
             <Fragment>
                 <Header pageTitle={this.state.title} change={this.changeTitle}>
@@ -75,6 +63,15 @@ class Home extends Component {
                         Botón
                     </button>
                 </div>
+                {/* {this.state.movies.map((e, i) => {
+                    return (<ul className={'movie'} key={`container-${i}`}>
+                        <li className={'movieTitle'} key={`title-${i}`}>{e.title}</li>
+                        <li className={'movieOverview'} key={`overview-${i}`}>{e.overview}</li>
+                        <li className={'movieDate'} key={`releasedate-${i}`}>{e.release_date}</li>
+                    </ul>)
+                })} */}
+                <MovieList movies={this.state.movies} title={'Top rated'} className={'movieList'}></MovieList>
+
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <p>{this.state.currentMovie}</p>
                 </Modal>
