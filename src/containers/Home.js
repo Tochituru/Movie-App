@@ -54,8 +54,17 @@ class Home extends Component {
         this.toggleModal()
     }
 
+    componentWillMount() {
+        console.log('dos')
+    }
+
+    componentDidMount() {
+        console.log('uno')
+    }
+
 
     render() {
+        console.log('tres')
         return (
             <Fragment>
                 <Header pageTitle={this.state.title} change={this.changeTitle}>
