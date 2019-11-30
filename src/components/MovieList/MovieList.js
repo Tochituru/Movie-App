@@ -1,27 +1,26 @@
 import React from 'react'
 import './MovieList.scss'
 
-const MovieItem = ({ element }) => {
-    let { title, overview, release_date } = element;
+const MovieItem = ({ title, overview, release_date }) => {
     return (
-        <h3 className={'title'}>{title}
-            <ul>
-
-            </ul>
-            <div className={'overview'}>Overview: {overview}</div>
-            <div className={'date'}>Release date: {release_date}</div>
-        </h3>
+        <li >
+            <p className={'movieTitle'}>{title}</p>
+            <em className={'date'}>Release date: {release_date}</em>
+            <p className={'overview'}>Overview: {overview}</p>
+        </li>
     )
 }
 
-const MovieList = ({ movies, title }) => {
+const MovieList = ({ movies, title, amount }) => {
+    let moviesToShow = amount? movies.slice(0, amount) : movies
     return (
-        <div className='movieList'>
+        <div className='movies'>
             <h3>{title}</h3>
-            <ul>
-                {movies.map((e, i) => <li>{e.title}</li>)}
+            <ul className='movieList'>
+                {moviesToShow.map((movie, i) =>
+                    <MovieItem key={i} {...movie} />
+                )}
             </ul>
-            {/* {data.map((e, i) => <MovieItem key={i} element={e} />)} */}
         </div>
     )
 }

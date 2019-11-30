@@ -1,15 +1,17 @@
-.movieList {
-    padding:0;
-    color: black;
-    .title {
-        font-weight: bolder;
-        margin: 20px 0;
-    };
+.movies {
+  padding: 0;
+  color: black;
+  .movieList {
+      list-style: none;
+    .movieTitle {
+      font-weight: bolder;
+      margin: 20px 0;
+    }
     .overview {
-        font-weight: lighter;
+      font-weight: lighter;
     }
     .date {
-        font-weight: lighter;
+      font-weight: lighter;
     }
+  }
 }
-
