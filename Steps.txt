@@ -38,8 +38,10 @@ Tiene definido un estado y es un stateful class component:
     El estado es básicamente el lugar central para la información. Como tal, define cómo está la aplicación (en qué estado se encuentra). Siempre quiero que el estado defina la forma y el momento de mi aplicación. Puedo, además, pasarlo como parámetros (props) a los componentes de la aplicación.
     Como se vea la aplicación idealmente dependerá de cómo tenga el estado en ese momento.
     Es el lugar central e inequívoco donde guardo mis datos. Si modifico ese origen de datos, quiero que modifique toda mi aplicación.
-    
     Por lo tanto, podemos usar métodos propios y custom o predeterminados de React.
+
+    Conviene inicializar todo estado vacío, para que no cause problemas de carga. No obstante, inicializarlo como lista, string, objeto, etc.
+    Es super normal no saber de entrada las cosas que vamos a inicializar desde un comienzo, pero es importante que a medida que lo hagamos, las agreguemos al estado y las inicialicemos vacías.
 
     El constructor es un método global de todas las clases. Es el método de toda clase que define sus valores iniciales.
     En el caso de los React components, hace falta pasarle al constructor parámetros props para que funcione:
@@ -238,6 +240,10 @@ Si no quiero que se ejecute la función en el class component, se la paso sin pa
 Hay distintos momentos en los que quiero abrir y cerrar el modal. Como es agnóstica, la función que abre y cierra el modal no va a cambiar, pero el contenido sí. Por eso voy a levantar children, que me va a traer lo que yo quiera dentro del tag modal.
 Luego tengo otra propiedad isOpen, que trae datos booleanos. Porque está formulado en ternario. Eso me permite decir si está abierto. 
 Hay un evento que dispara el modal Open, pero también quiero poder cerrarlo y cambiar el estado desde el modal. Me conviene llamar una función desde el padre del modal como dentro del modal mismo.
+
+Es más performante usar translate y transform que modificar con display block en su sass.
+
+Para agregar contenido al modal, agrego un estado currentMovie y una función que modifique ese estado. Ahora, el contenido se modifica mediante la función.
 
 
 [10-03 01:30]

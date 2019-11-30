@@ -1,4 +1,5 @@
 import React from 'react';
+import './NavBar.scss'
 
 const NavItem = ({element}) => {
     let {href, label} = element;
@@ -10,7 +11,7 @@ const NavItem = ({element}) => {
 
 const NavBar = ({data}) => {  
     return (
-        <nav>
+        <nav className={'mainNav'}>
             <ul>
                 {data.map((e, i)=> <NavItem key={i} element={e} />)}
             </ul>

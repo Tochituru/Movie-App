@@ -1,14 +1,23 @@
 import React, { Component, Fragment } from 'react';
-import Body from '../components/Body'
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import Modal from '../components/Modal/Modal';
-import NavBar from '../components/NavBar';
-import './Home.scss';
+import NavBar from '../components/NavBar/NavBar';
 
 class Home extends Component {
     state = {
+        ui: {
+            isLoading: '',
+            isModalOpen: '',
+            isPrimaryActionDisabled: '',
+            // para que estén prolijitos ahí
+        },
         title: 'Título',
         isModalOpen: false,
+        currentMovie: '',
+        currentCat: '',
+        queryResults: '', //No el criterio de búsqueda, sino el resultado
+        allMovies: '',
+        allCats: '',
         nav: [
             { label: 'Home', href: '/home' },
             { label: 'Top Rated', href: '/top' },
@@ -38,47 +47,29 @@ class Home extends Component {
     //     fetch('moviesApi')
     //     .then(res => this.setState({moviesList: res}))
     // }
-    changeTitle = (newTitle) => this.setState({ title: newTitle });
-    toggleModal = () => {
-        this.setState({ isModalOpen: !this.state.isModalOpen })
+    changeTitle = (newTitle) => this.setState({ title: newTitle })
+    toggleModal = () => this.setState({ isModalOpen: !this.state.isModalOpen })
+    setMovie = (str) => {
+        this.setState({ currentMovie: str })
+        this.toggleModal()
     }
 
-    render() {
-        console.log(this.state.isModalOpen);
 
+    render() {
         return (
             <Fragment>
-                <Header
-                    pageTitle={this.state.title}
-                    change={this.changeTitle}
-                />
-                <NavBar data={this.state.nav} />
-                <button
-                    onClick={() => this.toggleModal()}>
-                    Botón
+                <Header pageTitle={this.state.title} change={this.changeTitle}>
+                    <NavBar data={this.state.nav} />
+                </Header>
+                <div className={'container'}>
+                    <button onClick={() => this.setMovie('Batman')}>
+                        Botón
                     </button>
-                <Modal
-                    isOpen={this.state.isModalOpen}
-                    toggle={this.toggleModal}>
-                    <p>El mar</p>
+                </div>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <p>{this.state.currentMovie}</p>
                 </Modal>
 
-                {
-                    this.state.moviesList.map((element, i) => (
-                        <div key={i}>
-                            <h3>{element.cat}</h3>
-                            <ul>
-                                {element.movies.map((movie, index) => (<li key={index}>{movie.title} </li>
-                                ))
-                                }
-                            </ul>
-                        </div>
-                    ))
-                }
-                <Body test='probando la vida' />
-                {/* {this.state.selectedCAt ? <MoviesCat /> : <MoviesHome/>} */}
-                {/* esta es una opción, pero no es una buena práctica. No conviene poner condiciones en el render. */}
-                {/* this.state.selectedCat && MoviesCat  --> Esto es uan forma de decir: si existe A, entonces muestra B*/}
             </Fragment>
         )
     }

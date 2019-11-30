@@ -1,6 +1,15 @@
 body {
-    margin: 0px;
-    padding: 0px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: red;
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: red;
+  background-color: aqua;
+  padding: 24px;
+}
+
+.container {
+  margin: 130px;
+  box-sizing: border-box;
+  width: calc(100% - 130px);
+  float: left;
 }
