@@ -34,6 +34,10 @@ Tiene definido un estado y es un stateful class component:
     - Porque se define como una clase.
     - Porque extiende los comportamientos y métodos de Component que ofrece React.
     - Porque tiene definido un estado (this.state).
+
+    El estado es básicamente el lugar central para la información. Como tal, define cómo está la aplicación (en qué estado se encuentra). Siempre quiero que el estado defina la forma y el momento de mi aplicación. Puedo, además, pasarlo como parámetros (props) a los componentes de la aplicación.
+    Como se vea la aplicación idealmente dependerá de cómo tenga el estado en ese momento.
+    Es el lugar central e inequívoco donde guardo mis datos. Si modifico ese origen de datos, quiero que modifique toda mi aplicación.
     
     Por lo tanto, podemos usar métodos propios y custom o predeterminados de React.
 
@@ -44,6 +48,8 @@ Tiene definido un estado y es un stateful class component:
         El método super, dentro del constructor y en el contexto de clases, hace referencia a lo que está un nivel más arriba y le baje las propiedades que debería heredar para usar esas props.
             super(props)
 
+        Hay varias formas de configurar el state. La más tradicional es utilizar el método constructor, pero la otra es configurarlo de manera directa como "state".
+
     Props: (o properties) son parámetros. ¿Por qué le decimos props? A la hora de construir interfaces con react, hacemos cachos de vista que se representan como elementos nativos de html, como el header. No obstante, hay muchas más diferencias entre el jsx y html. Por ejemplo, creamos el elemento Header, le damos capacidades y funcionalidad y, al igual que los elementos HTML reciben propiedades (o atributos), por eso les decimos props: son las propiedades que los definen, más que los simples parámetros. Como esas props pueden tener parámetros, les decimos props para no confundirnos.
 
     Si dentro de un componente, quiero acceder a una prop que estoy pasando desde un container, debo incluir props como parámetro y mencionarlo dentro del componente mismo, como propiedad del objeto props (o bien desestructurado).
@@ -53,8 +59,8 @@ Tiene definido un estado y es un stateful class component:
      
     Componente: const Header ({title}) => (<div>{title}</div>)
 
-    TODO: ¿Por qué a veces se usa constructor y otros no?
 
+    
     TODO: ¿Por qué algunos métodos llevan punto y otros no? (this.setState vs. componentDidMount o render)
 
     Dentro del método render() {}, incluimos un Return(cositas) y allí especificamos cada una de las cosas que queremos en pantalla, que van directo al virtual dom. El método render sirve únicamente para React (creemos).
@@ -62,8 +68,7 @@ Tiene definido un estado y es un stateful class component:
     El estado: 
     Es importante que todos los cambios se reflejen a través del estado, no por referencia. 
     Es mejor tener la información hardcodeada dentro del this.state que en el render () {return()}.
-
-    
+   
     TODO: render() (cositas); render() {return(cositas)}
 
     ¿Cómo se vuelve stateful un componente? Al definir su estado y los métodos para manejarlo.
@@ -81,7 +86,16 @@ Tiene definido un estado y es un stateful class component:
     
     Para pasarlo a nietos, debo pasárselo primero al hijo y después al nieto.
 
-    - Hay que tener cuidado al hacer setState y modificaciones de estado.  Cuando me equivoco la propiedad que quiero cambiar, por ejemplo, changeTitle(newtitle) pasa a this.setState( subtitle: newtitle), hay ciertas versiones que lo agregan y otras que presuponen que eso es el único estado que queremos poner.
+    Cuando quiero modificar el estado, para evitar hacerlo por referencia, agrego la función, por ejemplo changeTitle(newTitle). Ahí el this tendrá un método setState y escribo el nuevo título:
+        changeTitle(newTitle) {
+            this.state.title = ''
+            this.setState({title: newtitle})
+        }
+    Hay que tener cuidado al hacer setState y modificaciones de estado.  Cuando me equivoco la propiedad que quiero cambiar, por ejemplo, changeTitle(newtitle) pasa a this.setState( subtitle: newtitle), hay ciertas versiones que lo agregan y otras que presuponen que eso es el único estado que queremos poner.
+
+    ¿Por qué usamos this? This hace referencia a "esta clase completa" Es toda la clase Home. Es como si yo escribiera "Home.changeTitle()"
+    
+    Tenemos un class component, con su estado, con un método que hicimos nosotras, otro método que levantamos en el contexto de react y un botón que hace uso de ese método para cambiar ese estado.     
 
 
 9. Definir la vista principal y los componentes. Este esquema permite establecer cómo vamos a seguir con el proceso de la app.
@@ -206,6 +220,25 @@ Como no sabemos cómo va a quedar exacto el estado que queremos, lo que haremos 
 
 Si tengo una lista de objetos, y cada uno tiene una lista de objetos, es posible que rompa todo a menos que me prepare.
 
-[]
+21. Binding.
 
+Un functional component es más performante que un class componente, pero carece de cosas qeu el class tiene: una forma nativa de manejar el estado, un método seguro para editarlo, eventos del ciclo de vida. Solo tiene un equivalente al render en ese return.
+
+Para pasarle una función a un componente funcional desde el class, lo hago sin parámetro para que no se ejecuta. Cuando la quiero ejecutar, desde el functional, le agregamos el parámetro.
+
+Cuando la función viaja al functional y el componente intenta ejecutarla en el evento onclick, tiende a pensar inicialmente que el functional es this. y que el setstate es parte del functional. Por eso se rompe.
+
+¿Cómo lo solucionamos? Con binding.
+==> Dentro de la función que quiero vincular al functional, le agrego el método .bind(this). 
+
+La más copada es con la magia de arrow functions. Esto permite bypassear el this.
+Si no quiero que se ejecute la función en el class component, se la paso sin paréntesis.
+
+22. Modales.
+Hay distintos momentos en los que quiero abrir y cerrar el modal. Como es agnóstica, la función que abre y cierra el modal no va a cambiar, pero el contenido sí. Por eso voy a levantar children, que me va a traer lo que yo quiera dentro del tag modal.
+Luego tengo otra propiedad isOpen, que trae datos booleanos. Porque está formulado en ternario. Eso me permite decir si está abierto. 
+Hay un evento que dispara el modal Open, pero también quiero poder cerrarlo y cambiar el estado desde el modal. Me conviene llamar una función desde el padre del modal como dentro del modal mismo.
+
+
+[10-03 01:30]
 

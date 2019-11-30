@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Header = props => {
-    return(
+    return (
         <header>
-            <h1>{props.pageTitle} </h1>
-            {props.children}
+            <h1 onClick={()=> props.change('Nuevo Título')}>
+                {props.pageTitle}
+            </h1>
         </header>
     )
 }
