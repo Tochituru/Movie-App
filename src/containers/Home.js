@@ -48,10 +48,11 @@ class Home extends Component {
         fetch(`https://api.themoviedb.org/3/movie/${cat}?api_key=${this.state.apiKey}`)
             .then((res) => res.json())
             .then((res) => {
-                let aux = this.state.categories.find((e) => e.catName === cat)
-                let newCat = { ...aux }
-                newCat.movies = res.results
-                this.setState({ categories: [...this.state.categories, newCat] })
+                this.setState({ movies: res.results })
+                // let aux = this.state.categories.find((e) => e.catName === cat)
+                // let newCat = { ...aux }
+                // newCat.movies = res.results
+                // this.setState({ categories: [...this.state.categories, newCat] })
             })
     }
 
@@ -61,19 +62,20 @@ class Home extends Component {
 
     render() {
         console.log(this.state.categories);
+        let { nav, movies, title, isModalOpen, currentMovie } = this.state
         return (
             <Fragment>
-                <Header pageTitle={this.state.title} change={this.changeTitle}>
-                    <NavBar data={this.state.nav} />
+                <Header pageTitle={title} change={this.changeTitle}>
+                    <NavBar data={nav} />
                 </Header>
                 <button onClick={() => this.setMovie('Batman')}>Botón</button>
-                <MovieList movies={this.state.movies} title={'Top rated'} className={'movieList'} amount={5}></MovieList>
-                <MovieList movies={this.state.movies} title={'Popular'} className={'movieList'} amount={10}></MovieList>
-                <MovieList movies={this.state.movies} title={'fantastic'} className={'movieList'}></MovieList>
+                <MovieList title={'Top rated'} className={'movieList'} movies={[...movies]} amount={2}></MovieList>
+                <MovieList title={'Popular'} className={'movieList'} movies={[...movies]} amount={2}></MovieList>
+                <MovieList title={'Upcoming'} className={'movieList'} movies={[...movies]} amount={2}></MovieList>
 
 
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <p>{this.state.currentMovie}</p>
+                <Modal isOpen={isModalOpen} toggle={this.toggleModal}>
+                    <p>{currentMovie}</p>
                 </Modal>
 
             </Fragment>

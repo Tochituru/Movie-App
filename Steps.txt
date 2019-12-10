@@ -266,5 +266,20 @@ Es más performante usar translate y transform que modificar con display block e
 Para agregar contenido al modal, agrego un estado currentMovie y una función que modifique ese estado. Ahora, el contenido se modifica mediante la función.
 
 
-[10-04]
+23. Mostrar películas
+    Con slice, digo que quiero que muestre desde x hasta y.
+    No obstante, el desde está hardcodeado (es un número), así que ahora creo una variable permita que el valor sea dinámico.
+    ¿Qué queremos ver? ¿5 más o las siguientes 5?
+    Cinco más
+    Entonces, tengo que modificar por cuántas estoy cortando la lista.
+    El padre va a hacer el cálculo de cuántas va a mostrar según lo que la persona ejecute en ese momento.
+    El componente funcional solo debe escupir información: si no tiene estado, no tiene que tener lógica tampoco (p. e.j, el slice).
+    Esa responsabilidad la tendrá el padre.
 
+    También podemos volverlo una clase con constructor. Super indica que trae de arriba propiedades y se las asigna a sí mismo. Las está recibiendo del objeto padre.
+
+    Las props son iguales que las del padre, pero se llaman this.props.
+    Además, pueden tener un estado y un estado con props (no se recomienda).
+    Conviene dividirlo.
+    En el estado, puedo manejar el slice poruqe quiero que la capacidad de corte esté en cada lista.
+    Hago una función que aumente la cantidad que estoy mostrando.
